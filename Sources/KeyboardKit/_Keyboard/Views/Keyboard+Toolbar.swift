@@ -49,12 +49,12 @@ public extension Keyboard {
         /// - Parameters:
         ///   - backgroundColor: The toolbar color, by default `.clear`.
         ///   - height: An optional fixed height, by default `nil`..
-        ///   - minHeight: The toolbar's minimum height, by default `48`.
+        ///   - minHeight: The toolbar's minimum height, by default `44`.
         ///   - maxHeight: An optional max height, by default `nil`.
         public init(
             backgroundColor: Color = .clear,
             height: CGFloat? = nil,
-            minHeight: Double = 48,
+            minHeight: Double = 44,
             maxHeight: CGFloat? = nil
         ) {
             self.backgroundColor = backgroundColor
