@@ -39,7 +39,8 @@ public struct KeyboardViewItem<Content: View>: View {
         inputWidth: CGFloat,
         isNextProbability: Double = 0,
         isGestureAutoCancellable: Bool? = nil,
-        content: Content
+        content: Content,
+        heightMinusTwo: Bool = false
     ) {
         self.item = item
         self.actionHandler = actionHandler
@@ -52,6 +53,7 @@ public struct KeyboardViewItem<Content: View>: View {
         self.isNextProbability = isNextProbability
         self.isGestureAutoCancellable = isGestureAutoCancellable
         self.content = content
+        self.heightMinusTwo = heightMinusTwo
     }
     
     private let item: KeyboardLayout.Item
@@ -64,6 +66,7 @@ public struct KeyboardViewItem<Content: View>: View {
     private let isNextProbability: Double
     private let isGestureAutoCancellable: Bool?
     private let content: Content
+    private let heightMinusTwo: Bool
     
     @Environment(\.keyboardSpaceContextMenuLeading)
     private var spaceContextMenuLeadingEnv
@@ -85,7 +88,8 @@ public struct KeyboardViewItem<Content: View>: View {
         .keyboardLayoutItemSize(
             for: item,
             rowWidth: keyboardWidth,
-            inputWidth: inputWidth
+            inputWidth: inputWidth,
+            heightMinusTwo: heightMinusTwo
         )
         .keyboardButton(
             for: item.action,

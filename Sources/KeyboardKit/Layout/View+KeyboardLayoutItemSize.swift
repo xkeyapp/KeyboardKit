@@ -22,14 +22,24 @@ public extension View {
     func keyboardLayoutItemSize(
         for item: KeyboardLayout.Item,
         rowWidth: CGFloat,
-        inputWidth: CGFloat
+        inputWidth: CGFloat,
+        heightMinusTwo: Bool = false
     ) -> some View {
-        self.frame(height: item.size.height - item.edgeInsets.top - item.edgeInsets.bottom)
-            .rowItemWidth(
-                for: item,
-                rowWidth: rowWidth,
-                inputWidth: inputWidth
-            )
+        if heightMinusTwo {
+            self.frame(height: item.size.height - item.edgeInsets.top - item.edgeInsets.bottom - 2)
+                .rowItemWidth(
+                    for: item,
+                    rowWidth: rowWidth,
+                    inputWidth: inputWidth
+                )
+        } else {
+            self.frame(height: item.size.height - item.edgeInsets.top - item.edgeInsets.bottom)
+                .rowItemWidth(
+                    for: item,
+                    rowWidth: rowWidth,
+                    inputWidth: inputWidth
+                )
+        }
     }
 }
 

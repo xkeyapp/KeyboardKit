@@ -325,7 +325,7 @@ private extension KeyboardView {
                                         totalWidth: keyboardWidth,
                                         inputWidth: inputWidth,
                                         isGestureAutoCancellable: row.offset == 0,
-                                        shouldRemoveBottomPadding: true
+                                        inLastRow: true
                                     )
                                 } else {
                                     buttonView(
@@ -333,7 +333,7 @@ private extension KeyboardView {
                                         totalWidth: keyboardWidth,
                                         inputWidth: inputWidth,
                                         isGestureAutoCancellable: row.offset == 0,
-                                        shouldRemoveBottomPadding: false
+                                        inLastRow: false
                                     )
                                 }
                             }
@@ -451,12 +451,12 @@ private extension KeyboardView {
         totalWidth width: Double,
         inputWidth: Double,
         isGestureAutoCancellable: Bool,
-        shouldRemoveBottomPadding: Bool
+        inLastRow: Bool
     ) -> ButtonView {
         let action = item.action
         let prediction = autocompleteContext.nextCharacterPrediction(for: action)
         var handledItem: KeyboardLayout.Item = item
-        if shouldRemoveBottomPadding {
+        if inLastRow {
             handledItem.removeBottomPadding = true
         }
         return buttonViewBuilder((
@@ -472,7 +472,8 @@ private extension KeyboardView {
                 inputWidth: inputWidth,
                 isNextProbability: prediction,
                 isGestureAutoCancellable: isGestureAutoCancellable,
-                content: buttonContent(for: item)
+                content: buttonContent(for: item),
+                heightMinusTwo: inLastRow
             )
         ))
     }
