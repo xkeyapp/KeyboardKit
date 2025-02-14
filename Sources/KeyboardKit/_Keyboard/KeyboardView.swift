@@ -399,7 +399,6 @@ private extension KeyboardView {
                 )
             ))
             .autocompleteToolbarStyle(style)
-            .frame(minHeight: style.height)
         }
         .opacity(shouldShowToolbar ? 1 : 0)
     }
