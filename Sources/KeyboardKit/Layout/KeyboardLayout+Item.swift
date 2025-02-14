@@ -49,7 +49,7 @@ public extension KeyboardLayout {
             get {
                 if removeBottomPadding {
                     var handledEdgeInsets = _edgeInsets
-                    handledEdgeInsets.bottom = _edgeInsets.bottom - 2
+                    handledEdgeInsets.bottom = 0
                     return handledEdgeInsets
                 } else {
                     return _edgeInsets
