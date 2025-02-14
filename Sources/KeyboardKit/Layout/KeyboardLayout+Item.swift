@@ -31,7 +31,7 @@ public extension KeyboardLayout {
             self.action = action
             self.size = size
             self.alignment = alignment
-            self.edgeInsets = edgeInsets
+            self._edgeInsets = edgeInsets
         }
         
         /// The keyboard action to use.
@@ -44,7 +44,23 @@ public extension KeyboardLayout {
         public var alignment: Alignment
         
         /// The edge insets to apply.
-        public var edgeInsets: EdgeInsets
+        private var _edgeInsets: EdgeInsets
+        public var edgeInsets: EdgeInsets {
+            get {
+                if removeBottomPadding {
+                    var handledEdgeInsets = _edgeInsets
+                    handledEdgeInsets.bottom = _edgeInsets.bottom - 2
+                    return handledEdgeInsets
+                } else {
+                    return _edgeInsets
+                }
+            }
+            set (newValue) {
+                self._edgeInsets = newValue
+            }
+        }
+        
+        public var removeBottomPadding: Bool = false
     }
 
     /// This typealias represents a list of layout items.

@@ -319,12 +319,23 @@ private extension KeyboardView {
                     ForEach(Array(layout.itemRows.enumerated()), id: \.offset) { row in
                         HStack(spacing: 0) {
                             ForEach(Array(row.element.enumerated()), id: \.offset) { item in
-                                buttonView(
-                                    for: item.element,
-                                    totalWidth: keyboardWidth,
-                                    inputWidth: inputWidth,
-                                    isGestureAutoCancellable: row.offset == 0
-                                )
+                                if row.offset == layout.itemRows.count - 1 {
+                                    buttonView(
+                                        for: item.element,
+                                        totalWidth: keyboardWidth,
+                                        inputWidth: inputWidth,
+                                        isGestureAutoCancellable: row.offset == 0,
+                                        shouldRemoveBottomPadding: true
+                                    )
+                                } else {
+                                    buttonView(
+                                        for: item.element,
+                                        totalWidth: keyboardWidth,
+                                        inputWidth: inputWidth,
+                                        isGestureAutoCancellable: row.offset == 0,
+                                        shouldRemoveBottomPadding: false
+                                    )
+                                }
                             }
                         }
                     }
@@ -439,14 +450,19 @@ private extension KeyboardView {
         for item: KeyboardLayout.Item,
         totalWidth width: Double,
         inputWidth: Double,
-        isGestureAutoCancellable: Bool
+        isGestureAutoCancellable: Bool,
+        shouldRemoveBottomPadding: Bool
     ) -> ButtonView {
         let action = item.action
         let prediction = autocompleteContext.nextCharacterPrediction(for: action)
+        var handledItem: KeyboardLayout.Item = item
+        if shouldRemoveBottomPadding {
+            handledItem.removeBottomPadding = true
+        }
         return buttonViewBuilder((
             item: item,
             view: KeyboardViewItem(
-                item: item,
+                item: handledItem,
                 actionHandler: actionHandler,
                 repeatTimer: repeatTimer,
                 styleService: styleService,
