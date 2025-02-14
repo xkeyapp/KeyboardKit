@@ -324,16 +324,14 @@ private extension KeyboardView {
                                         for: item.element,
                                         totalWidth: keyboardWidth,
                                         inputWidth: inputWidth,
-                                        isGestureAutoCancellable: row.offset == 0,
-                                        inLastRow: true
+                                        isGestureAutoCancellable: row.offset == 0
                                     )
                                 } else {
                                     buttonView(
                                         for: item.element,
                                         totalWidth: keyboardWidth,
                                         inputWidth: inputWidth,
-                                        isGestureAutoCancellable: row.offset == 0,
-                                        inLastRow: false
+                                        isGestureAutoCancellable: row.offset == 0
                                     )
                                 }
                             }
@@ -346,7 +344,7 @@ private extension KeyboardView {
             }
             .frame(maxWidth: .infinity, alignment: keyboardAlignment)
         }
-        .frame(height: layout.totalHeight)
+        .frame(height: layout.totalHeight - 2)
     }
     
     func keyboardWidth(for totalWidth: Double) -> Double {
@@ -450,19 +448,14 @@ private extension KeyboardView {
         for item: KeyboardLayout.Item,
         totalWidth width: Double,
         inputWidth: Double,
-        isGestureAutoCancellable: Bool,
-        inLastRow: Bool
+        isGestureAutoCancellable: Bool
     ) -> ButtonView {
         let action = item.action
         let prediction = autocompleteContext.nextCharacterPrediction(for: action)
-        var handledItem: KeyboardLayout.Item = item
-        if inLastRow {
-            handledItem.removeBottomPadding = true
-        }
         return buttonViewBuilder((
             item: item,
             view: KeyboardViewItem(
-                item: handledItem,
+                item: item,
                 actionHandler: actionHandler,
                 repeatTimer: repeatTimer,
                 styleService: styleService,
@@ -472,8 +465,7 @@ private extension KeyboardView {
                 inputWidth: inputWidth,
                 isNextProbability: prediction,
                 isGestureAutoCancellable: isGestureAutoCancellable,
-                content: buttonContent(for: item),
-                heightMinusTwo: inLastRow
+                content: buttonContent(for: item)
             )
         ))
     }

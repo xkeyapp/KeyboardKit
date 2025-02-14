@@ -26,7 +26,7 @@ public extension View {
         heightMinusTwo: Bool = false
     ) -> some View {
         if heightMinusTwo {
-            self.frame(height: item.size.height - item.edgeInsets.top * 2 - 2)
+            self.frame(height: item.size.height - item.edgeInsets.top - item.edgeInsets.bottom - 2)
                 .rowItemWidth(
                     for: item,
                     rowWidth: rowWidth,
