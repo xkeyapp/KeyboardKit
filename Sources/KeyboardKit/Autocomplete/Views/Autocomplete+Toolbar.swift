@@ -65,15 +65,15 @@ public extension Autocomplete {
         public typealias SuggestionAction = (Suggestion) -> Void
 
         public struct ItemParams {
-            let suggestion: Suggestion
-            let style: Style
-            let view: StandardItem
+            public let suggestion: Suggestion
+            public let style: Style
+            public let view: StandardItem
         }
 
         public struct SeparatorParams {
-            let suggestion: Suggestion
-            let style: Style
-            let view: StandardSeparator
+            public let suggestion: Suggestion
+            public let style: Style
+            public let view: StandardSeparator
         }
 
         public typealias StandardItem = Autocomplete.ToolbarItem
